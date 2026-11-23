@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Illustrated walkthroughs for running, scheduling, and reviewing Khonsu tasks on macOS.">
+  <meta name="description" content="Illustrated walkthroughs for running commands, scripts, AI prompts, worktree reviews, result delivery, watches, pipelines, and CLI controls in Khonsu on macOS.">
   <title>Khonsu Tutorials</title>
   <link rel="stylesheet" href="tutorial.css">
 </head>
@@ -16,7 +16,7 @@
   <main id="main">
     <div class="intro">
       <h1>Khonsu tutorials</h1>
-      <p>Run a command, put it on a schedule, and see what happened. Follow along in Khonsu for macOS 14 or later.</p>
+      <p>Run commands and scripts, schedule AI agents safely, deliver outputs, build pipelines, and control tasks from the CLI. Follow along in Khonsu for macOS 14 or later.</p>
     </div>
     <div class="tutorials">
       <nav aria-label="Tutorials">
@@ -27,6 +27,13 @@
           <li><a href="#schedule">Schedule a daily task</a></li>
           <li><a href="#agents">Reuse an agent prompt</a></li>
           <li><a href="#history">Review and pause a task</a></li>
+          <li><a href="#script">Run a saved script</a></li>
+          <li><a href="#prompt">Create a task in plain English</a></li>
+          <li><a href="#worktree">Review isolated Git worktree edits</a></li>
+          <li><a href="#delivery">Deliver output to Markdown or a webhook</a></li>
+          <li><a href="#watch">Watch an endpoint with auto-stop</a></li>
+          <li><a href="#pipeline">Build a multi-step pipeline</a></li>
+          <li><a href="#cli">Control tasks from the CLI</a></li>
         </ol>
       </nav>
       <div class="chapters">
@@ -96,6 +103,111 @@
           <figure>
             <a class="screenshot" href="images/history.png"><img src="images/history.png" width="760" height="320" loading="lazy" alt="A hello-khonsu task with a paused schedule and History selected. The most recent run is marked Passed."></a>
             <figcaption>Mock screenshot · A paused task with a successful prior run</figcaption>
+          </figure>
+        </section>
+        <section id="script" aria-labelledby="script-title">
+          <h2 id="script-title">Run a saved script</h2>
+          <p>Keep multi-line shell or Python maintenance jobs in executable files instead of crowding a one-line command.</p>
+          <ol>
+            <li>Click <strong>New Task</strong> and choose <strong>Script</strong>.</li>
+            <li>Click <strong>New Script…</strong> to create a starter file in <code>~/.khonsu/scripts/</code> and open it in your editor, or enter an existing file under <strong>Script Path</strong>.</li>
+            <li>Expand <strong>Script options</strong> if you need a custom <strong>Interpreter</strong> such as <code>/usr/bin/python3</code> or <strong>Stdin (optional)</strong>.</li>
+            <li>Set <strong>Run</strong> to <strong>Weekly</strong> (or <strong>Weekdays</strong>), confirm <strong>Enable schedule</strong>, and click <strong>Save Task</strong>.</li>
+          </ol>
+          <figure>
+            <a class="screenshot" href="images/script.png"><img src="images/script.png" width="760" height="440" loading="lazy" alt="New Task form with Script selected, a weekly-brew-audit.sh path, New Script… highlighted, and a Weekly Monday 9:00 AM schedule."></a>
+            <figcaption>Mock screenshot · Scheduling a reusable script from ~/.khonsu/scripts</figcaption>
+          </figure>
+          <p class="note">Choose your preferred editor (<strong>Zed</strong>, <strong>Cursor</strong>, <strong>Visual Studio Code</strong>, or <strong>macOS Default</strong>) in <strong>Settings → General → Defaults</strong>.</p>
+        </section>
+        <section id="prompt" aria-labelledby="prompt-title">
+          <h2 id="prompt-title">Create a task in plain English</h2>
+          <p>Describe a recurring AI task in natural language and let Khonsu fill in the schedule, timezone, and safety defaults.</p>
+          <ol>
+            <li>Open the toolbar <strong>More actions (<code>…</code>)</strong> menu and choose <strong>Create Task from a Description…</strong>.</li>
+            <li>Enter a description—for example, <code>Every weekday at 8:30am New York time, check failing tests, draft minimal fixes in a worktree, and require review</code>—or pick a starter under <strong>Examples</strong>.</li>
+            <li>Select an agent preset such as <strong>Claude Code</strong> or <strong>Codex CLI</strong>, confirm the <strong>Workspace</strong> folder, and check <strong>Live Preview</strong> (or click <strong>Refine with AI</strong> if an AI provider is configured).</li>
+            <li>Click <strong>Create Paused Task</strong>. Inspect the task or run it once before enabling its schedule.</li>
+          </ol>
+          <figure>
+            <a class="screenshot" href="images/prompt.png"><img src="images/prompt.png" width="760" height="420" loading="lazy" alt="Create with Prompt sheet showing a weekday New York test-fix instruction, Claude Code selected, a Live Preview card with cron and safety badges, and Create Paused Task highlighted."></a>
+            <figcaption>Mock screenshot · Turning a plain-English request into a paused AI task</figcaption>
+          </figure>
+        </section>
+        <section id="worktree" aria-labelledby="worktree-title">
+          <h2 id="worktree-title">Review isolated Git worktree edits</h2>
+          <p>Let a coding agent edit a repository on a temporary branch and inspect every line before applying changes.</p>
+          <ol>
+            <li>Edit an <strong>AI Prompt</strong> task, expand <strong>Advanced execution</strong>, and turn on <strong>Run in isolated Git worktree</strong>. Optionally set <strong>Allowed Write Globs (Optional)</strong> (such as <code>docs/**, Tests/**</code>) and turn on <strong>Share memory across runs</strong> so the agent can read <code>$KHONSU_PREV_OUTPUT</code> and <code>$KHONSU_MEMORY_FILE</code>.</li>
+            <li>Run the task. Clean runs delete the temporary worktree automatically; runs with edits appear in <strong>Pending Review</strong>.</li>
+            <li>Open <strong>Pending Review</strong> in the sidebar to check <strong>Write Scope Check</strong> and the <strong>Unified Diff</strong>, then click <strong>Apply Changes</strong>—or <strong>Discard</strong> to remove the temporary branch.</li>
+          </ol>
+          <figure>
+            <a class="screenshot" href="images/worktree.png"><img src="images/worktree.png" width="760" height="390" loading="lazy" alt="Pending Review inbox showing fix-failing-tests with Scope OK, a unified diff preview, and Apply Changes highlighted."></a>
+            <figcaption>Mock screenshot · Reviewing an isolated worktree diff before patching the repository</figcaption>
+          </figure>
+          <p class="note">You can also review from the terminal with <code>khonsu review fix-failing-tests</code>, <code>khonsu review fix-failing-tests --apply</code>, or <code>--discard</code>.</p>
+        </section>
+        <section id="delivery" aria-labelledby="delivery-title">
+          <h2 id="delivery-title">Deliver output to Markdown or a webhook</h2>
+          <p>Save daily digests to a dated Markdown file or send alerts to Slack, Discord, or custom webhooks only when output matters.</p>
+          <ol>
+            <li>Select a task, click <strong>Edit</strong>, and expand <strong>Delivery &amp; Notifications</strong>.</li>
+            <li>Choose when macOS alerts fire under <strong>Notifications</strong> (for example, <strong>On output change</strong> or <strong>On failure</strong>).</li>
+            <li>Under <strong>Result Delivery (Optional)</strong>, pick <strong>Markdown File</strong> (such as <code>~/Documents/daily-brief-{{date}}.md</code> with <strong>Append</strong> or <strong>Overwrite</strong>) or <strong>Webhook URL</strong>, then choose <strong>When</strong> to deliver (<strong>Always</strong>, <strong>On success</strong>, <strong>On failure</strong>, or <strong>On output change</strong>).</li>
+            <li>Click <strong>Save Changes</strong>. In <strong>History</strong> or <strong>Activity</strong>, filter <strong>Changed only</strong> or switch stdout to <strong>Diff</strong> or <strong>Markdown</strong> to see what changed between runs.</li>
+          </ol>
+          <figure>
+            <a class="screenshot" href="images/delivery.png"><img src="images/delivery.png" width="760" height="390" loading="lazy" alt="Edit sheet showing Delivery &amp; Notifications with Notifications set to On output change, Result Delivery set to Markdown File, a dated path template, Overwrite mode, and Save Changes highlighted."></a>
+            <figcaption>Mock screenshot · Routing task output to a dated Markdown report</figcaption>
+          </figure>
+        </section>
+        <section id="watch" aria-labelledby="watch-title">
+          <h2 id="watch-title">Watch an endpoint with auto-stop</h2>
+          <p>Probe a local service, file, or command on a cadence and automatically pause the schedule if a failure threshold trips.</p>
+          <ol>
+            <li>Click <strong>New Task</strong>, open <strong>More types</strong>, and choose <strong>Watch</strong>.</li>
+            <li>Choose a <strong>Probe Kind</strong> (<strong>HTTP</strong>, <strong>File</strong>, or <strong>Command</strong>), enter a <strong>Target</strong> such as <code>http://127.0.0.1:8080/health</code>, and select a <strong>Condition</strong> (<strong>Unhealthy / Error</strong>, <strong>Numeric Threshold</strong>, or <strong>Overdue / Stale</strong>).</li>
+            <li>Expand <strong>Advanced execution → Auto-Stop Conditions</strong> and set a guardrail such as <strong>Pause after consecutive failures</strong> (or <strong>Stop when output changes</strong>), then click <strong>Save Task</strong>.</li>
+          </ol>
+          <figure>
+            <a class="screenshot" href="images/watch.png"><img src="images/watch.png" width="760" height="400" loading="lazy" alt="New Task form with Watch selected, HTTP probe targeting 127.0.0.1:8080/health, Unhealthy / Error condition, Auto-Stop Conditions set to pause after 3 failures, and Save Task highlighted."></a>
+            <figcaption>Mock screenshot · HTTP health probe with an automatic failure circuit breaker</figcaption>
+          </figure>
+          <p class="note">Auto-stop rules run inside Khonsu's scheduler engine. When a guardrail trips, Khonsu marks the task <strong>Auto-paused</strong> until you resume its schedule.</p>
+        </section>
+        <section id="pipeline" aria-labelledby="pipeline-title">
+          <h2 id="pipeline-title">Build a multi-step pipeline</h2>
+          <p>Chain tests, agent fixes, and verification left-to-right with shared artifacts and optional human approval gates.</p>
+          <ol>
+            <li>Open the toolbar <strong>More actions (<code>…</code>)</strong> menu and choose <strong>Pipelines → New Pipeline…</strong>.</li>
+            <li>Pick a starter recipe—such as <strong>Test -&gt; Auto-Fix on Failure</strong>, <strong>Web Research -&gt; Markdown Brief</strong>, or <strong>Parallel Audits -&gt; Morning Brief</strong>—choose your <strong>Coding Agent</strong> and <strong>Working Directory</strong>, and click <strong>Create Pipeline</strong>.</li>
+            <li>Review stages left-to-right on the <strong>Pipelines</strong> board. Click any stage to inspect <code>$KHONSU_PIPELINE_DIR</code> artifacts, or open <strong>Pending Review</strong> and click <strong>Approve &amp; Continue Pipeline</strong> when a review gate pauses.</li>
+          </ol>
+          <figure>
+            <a class="screenshot" href="images/pipeline.png"><img src="images/pipeline.png" width="760" height="340" loading="lazy" alt="Pipeline stage board showing Trigger, Failed Run Tests stage, Fix in Worktree waiting for approval, and Pending Re-verify Tests stage."></a>
+            <figcaption>Mock screenshot · A gated test-and-fix pipeline paused for approval</figcaption>
+          </figure>
+          <p class="note">Scheduled and watch recipes start paused so you can inspect or test individual stages first.</p>
+        </section>
+        <section id="cli" aria-labelledby="cli-title">
+          <h2 id="cli-title">Control tasks from the CLI</h2>
+          <p>Trigger runs, inspect diffs, approve pipeline gates, and pause all scheduled tasks from your terminal.</p>
+          <ol>
+            <li>Leave Khonsu running in the menu bar so the local loopback server is available to the <code>khonsu</code> CLI.</li>
+            <li>Run commands to inspect status, wait on a run, or view only changed output:
+              <pre><code>khonsu list
+khonsu run --wait daily-brief
+khonsu logs daily-brief --changed --diff
+khonsu create "Weekdays at 9am, summarize recent git commits" --workdir ~/code/repo
+khonsu review fix-failing-tests --apply
+khonsu pipeline approve test-autofix</code></pre>
+            </li>
+            <li>To stop every active task immediately during an outage or travel, press <strong>⇧⌘P</strong> in the app or run <code>khonsu pause-all</code>, then run <code>khonsu restore</code> to re-enable only the tasks that were active beforehand.</li>
+          </ol>
+          <figure>
+            <a class="screenshot" href="images/cli.png"><img src="images/cli.png" width="760" height="340" loading="lazy" alt="Terminal window showing khonsu list, khonsu logs daily-brief --changed --diff with line changes, and khonsu pause-all output."></a>
+            <figcaption>Mock screenshot · Checking changed output and pausing all tasks from Terminal</figcaption>
           </figure>
         </section>
       </div>

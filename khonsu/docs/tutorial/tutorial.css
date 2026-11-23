@@ -39,6 +39,8 @@ h2 { font-size: clamp(1.55rem, 3vw, 2.15rem); }
 nav {
   position: sticky;
   top: 1.5rem;
+  max-height: calc(100vh - 3rem);
+  overflow-y: auto;
   border-top: 1px solid var(--line);
   padding-top: 1rem;
   font-size: .9rem;
@@ -53,6 +55,22 @@ section ol { margin: .9rem 0 1.2rem; padding-left: 1.4rem; }
 section li { padding-left: .24rem; margin-bottom: .38rem; }
 section li::marker { color: var(--gold); }
 code { background: #242c3d; padding: .12em .28em; border-radius: .24em; font-size: .86em; overflow-wrap: anywhere; }
+pre {
+  margin: 1rem 0 1.2rem;
+  padding: .9rem 1.1rem;
+  background: #161b27;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow-x: auto;
+  line-height: 1.5;
+}
+pre code {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  font-size: .84rem;
+  overflow-wrap: normal;
+}
 figure { margin: 1.35rem 0 0; }
 img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 12px; }
 figcaption { padding-top: .45rem; color: var(--muted); font-size: .82rem; }
@@ -61,7 +79,7 @@ figcaption { padding-top: .45rem; color: var(--muted); font-size: .82rem; }
 @media (max-width: 750px) {
   .intro { margin-bottom: 1.65rem; }
   .tutorials { display: block; }
-  nav { position: static; margin-bottom: 1.65rem; }
+  nav { position: static; max-height: none; overflow: visible; margin-bottom: 1.65rem; }
   section { padding-bottom: 1.8rem; }
 }
 
@@ -69,6 +87,8 @@ figcaption { padding-top: .45rem; color: var(--muted); font-size: .82rem; }
   :root { color-scheme: light; --base: white; --ink: #141824; --muted: #3c4351; --line: #c1c5cc; }
   nav, .site-header, footer, .skip { display: none; }
   .tutorials { display: block; }
+  code { background: #eef1f7; }
+  pre { background: #f4f6fa; break-inside: avoid; }
   figure { break-inside: avoid; }
 }
 
