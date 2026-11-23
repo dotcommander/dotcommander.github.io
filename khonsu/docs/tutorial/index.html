@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Illustrated walkthroughs for running, scheduling, and reviewing Khonsu tasks on macOS.">
+  <title>Khonsu Tutorials</title>
+  <link rel="stylesheet" href="tutorial.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to tutorials</a>
+  <header class="site-header">
+    <a class="brand" href="../../khonsu.html"><span aria-hidden="true">☾</span> Khonsu</a>
+    <a href="../../khonsu.html">Product home <span aria-hidden="true">↗</span></a>
+  </header>
+  <main id="main">
+    <div class="intro">
+      <h1>Khonsu tutorials</h1>
+      <p>Run a command, put it on a schedule, and see what happened. Follow along in Khonsu for macOS 14 or later.</p>
+    </div>
+    <div class="tutorials">
+      <nav aria-label="Tutorials">
+        <h2>On this page</h2>
+        <ol>
+          <li><a href="#example">Try the built-in example</a></li>
+          <li><a href="#command">Run your own command</a></li>
+          <li><a href="#schedule">Schedule a daily task</a></li>
+          <li><a href="#agents">Reuse an agent prompt</a></li>
+          <li><a href="#history">Review and pause a task</a></li>
+        </ol>
+      </nav>
+      <div class="chapters">
+        <section id="example" aria-labelledby="example-title">
+          <h2 id="example-title">Try the built-in example</h2>
+          <p>See a task go from start to result with the local text report bundled with Khonsu.</p>
+          <ol>
+            <li>On the welcome screen, click <strong>Run an Example</strong>.</li>
+            <li>Open <strong>Overview</strong> for the result or <strong>Logs</strong> for the output. The example counts the words and lines in bundled text.</li>
+            <li>To repeat it, select <strong>sample-text-report</strong> and click <strong>Run</strong>.</li>
+          </ol>
+          <figure>
+            <a class="screenshot" href="images/example.png"><img src="images/example.png" width="760" height="320" alt="Khonsu’s welcome screen with New Task and Run an Example. Run an Example is highlighted."></a>
+            <figcaption>Mock screenshot · Welcome screen with an empty task list</figcaption>
+          </figure>
+        </section>
+        <section id="command" aria-labelledby="command-title">
+          <h2 id="command-title">Run your own command</h2>
+          <p>Start with a command that prints a line of text.</p>
+          <ol>
+            <li>Click <strong>New Task</strong> and choose <strong>Command</strong>.</li>
+            <li>Enter <code>/bin/echo "Hello from Khonsu"</code> and name the task <strong>hello-khonsu</strong>.</li>
+            <li>Leave <strong>Run</strong> set to <strong>On demand</strong> and click <strong>Save Task</strong>.</li>
+            <li>Select the task and click <strong>Run</strong>. In <strong>Logs</strong>, look for <code>Hello from Khonsu</code>.</li>
+          </ol>
+          <figure>
+            <a class="screenshot" href="images/command.png"><img src="images/command.png" width="760" height="400" loading="lazy" alt="A New Task form for hello-khonsu with a local echo command, On demand schedule, and Save Task highlighted."></a>
+            <figcaption>Mock screenshot · An on-demand command ready to save</figcaption>
+          </figure>
+        </section>
+        <section id="schedule" aria-labelledby="schedule-title">
+          <h2 id="schedule-title">Schedule a daily task</h2>
+          <p>Give an existing task a regular time to run.</p>
+          <ol>
+            <li>Select <strong>hello-khonsu</strong> and click <strong>Edit</strong> in the task details.</li>
+            <li>Under <strong>Schedule</strong>, set <strong>Run</strong> to <strong>Daily</strong> and choose <strong>9:00 AM</strong>.</li>
+            <li>Check the timezone and the preview of the next run. Save the task, then look under <strong>Overview → Schedule</strong> to confirm when it will run.</li>
+          </ol>
+          <figure>
+            <a class="screenshot" href="images/schedule.png"><img src="images/schedule.png" width="760" height="290" loading="lazy" alt="The Schedule section shows Run set to Daily, a 9:00 AM time, and a preview with a timezone and the next run."></a>
+            <figcaption>Mock screenshot · Daily schedule and next-run preview</figcaption>
+          </figure>
+        </section>
+        <section id="agents" aria-labelledby="agents-title">
+          <h2 id="agents-title">Reuse an agent prompt</h2>
+          <p>Save instructions you reach for often, such as a checklist for reviewing release notes.</p>
+          <ol>
+            <li>Open <strong>Khonsu → Settings → Agents</strong>. Choose a starter such as <strong>Code Reviewer</strong> and click <strong>Duplicate</strong>, or click <strong>Create New Agent</strong>.</li>
+            <li>Fill in <strong>Name</strong>, <strong>Description</strong>, and <strong>Prompt</strong>. Click <strong>Save Agent</strong>.</li>
+            <li>Create an <strong>AI Prompt</strong> task and select your agent under <strong>Use Agent Prompt</strong>. Khonsu copies the prompt into <strong>Instruction</strong>, where you can tailor it to the task.</li>
+            <li>Choose an available runner under <strong>Run with</strong>. If it needs setup, open <strong>Settings → Advanced</strong> for <strong>Coding Agents</strong> or <strong>AI Providers</strong>.</li>
+          </ol>
+          <figure>
+            <a class="screenshot" href="images/agents.png"><img src="images/agents.png" width="760" height="360" loading="lazy" alt="Agents settings shows Your Agents and Starters in the sidebar. Release Reviewer is open with an inline prompt editor and Save Agent."></a>
+            <figcaption>Mock screenshot · Editing a saved prompt in Settings → Agents</figcaption>
+          </figure>
+          <p class="note">Tasks keep the prompt text they were saved with. To pick up a later edit to the agent, apply its prompt to the task again.</p>
+        </section>
+        <section id="history" aria-labelledby="history-title">
+          <h2 id="history-title">Review and pause a task</h2>
+          <p>Check the last run before deciding whether the task should keep running on its schedule.</p>
+          <ol>
+            <li>Select the task and open <strong>History</strong>. Pick a run to inspect its status, then use <strong>Logs</strong> to see output or errors.</li>
+            <li>To pause future runs, switch the task off using its schedule toggle. You can find paused tasks under <strong>More filters → Paused schedules</strong>.</li>
+            <li>Switch the task back on when you are ready. <strong>Overview → Schedule</strong> shows the next run.</li>
+          </ol>
+          <figure>
+            <a class="screenshot" href="images/history.png"><img src="images/history.png" width="760" height="320" loading="lazy" alt="A hello-khonsu task with a paused schedule and History selected. The most recent run is marked Passed."></a>
+            <figcaption>Mock screenshot · A paused task with a successful prior run</figcaption>
+          </figure>
+        </section>
+      </div>
+    </div>
+  </main>
+  <footer><a href="../../khonsu.html">Khonsu home</a><a href="#main">Back to top ↑</a></footer>
+</body>
+</html>

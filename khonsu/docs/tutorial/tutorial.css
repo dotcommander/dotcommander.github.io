@@ -1,0 +1,76 @@
+:root {
+  color-scheme: dark;
+  --base: #10131c;
+  --ink: #f0f3fc;
+  --muted: #aeb9cf;
+  --line: #30394e;
+  --link: #a5c7ff;
+  --gold: #f2cd8c;
+  font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; color: var(--ink); background: var(--base); }
+a { color: var(--link); text-underline-offset: .24em; }
+a:hover { color: var(--ink); }
+a:focus-visible { outline: 2px solid var(--gold); outline-offset: 5px; border-radius: 2px; }
+.skip { position: absolute; inset: .6rem auto auto .6rem; padding: .4rem .7rem; background: var(--base); transform: translateY(-150%); }
+.skip:focus { transform: none; }
+.site-header, footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: .8rem clamp(1rem, 5vw, 4rem);
+  font-size: .86rem;
+}
+.site-header { border-bottom: 1px solid var(--line); }
+footer { border-top: 1px solid var(--line); }
+.site-header a { text-decoration: none; }
+.site-header .brand { color: var(--ink); font-weight: 700; font-size: 1rem; }
+.brand span { color: var(--gold); margin-right: .28rem; }
+main { max-width: 1120px; margin: 0 auto; padding: 0 clamp(1rem, 4vw, 3rem); }
+.intro { max-width: 44rem; margin: clamp(2.3rem, 6vw, 5.5rem) 0 2.8rem; }
+h1, h2 { margin: 0; line-height: 1.14; letter-spacing: -.025em; }
+h1 { font-size: clamp(2.3rem, 5vw, 4rem); }
+h2 { font-size: clamp(1.55rem, 3vw, 2.15rem); }
+.intro p { max-width: 33rem; font-size: 1.16rem; color: var(--muted); }
+.tutorials { display: grid; grid-template-columns: 12rem minmax(0, 1fr); gap: clamp(1.6rem, 5vw, 4rem); align-items: start; }
+nav {
+  position: sticky;
+  top: 1.5rem;
+  border-top: 1px solid var(--line);
+  padding-top: 1rem;
+  font-size: .9rem;
+}
+nav h2 { font-size: .82rem; letter-spacing: .03em; }
+nav ol { margin: .7rem 0 0; padding-left: 1.24rem; }
+nav li { margin: .5rem 0; color: var(--muted); }
+nav a { text-decoration: none; }
+section { scroll-margin-top: 1.35rem; border-top: 1px solid var(--line); padding: 1.3rem 0 2.5rem; }
+section p { margin: .7rem 0; color: var(--muted); }
+section ol { margin: .9rem 0 1.2rem; padding-left: 1.4rem; }
+section li { padding-left: .24rem; margin-bottom: .38rem; }
+section li::marker { color: var(--gold); }
+code { background: #242c3d; padding: .12em .28em; border-radius: .24em; font-size: .86em; overflow-wrap: anywhere; }
+figure { margin: 1.35rem 0 0; }
+img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 12px; }
+figcaption { padding-top: .45rem; color: var(--muted); font-size: .82rem; }
+.note { margin-top: 1rem; padding-left: .8rem; border-left: 2px solid var(--gold); font-size: .92rem; }
+
+@media (max-width: 750px) {
+  .intro { margin-bottom: 1.65rem; }
+  .tutorials { display: block; }
+  nav { position: static; margin-bottom: 1.65rem; }
+  section { padding-bottom: 1.8rem; }
+}
+
+@media print {
+  :root { color-scheme: light; --base: white; --ink: #141824; --muted: #3c4351; --line: #c1c5cc; }
+  nav, .site-header, footer, .skip { display: none; }
+  .tutorials { display: block; }
+  figure { break-inside: avoid; }
+}
+
+.screenshot { display: block; border-radius: 12px; }
+.screenshot:hover img { border-color: var(--link); }
